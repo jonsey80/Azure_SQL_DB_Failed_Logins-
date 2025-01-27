@@ -1,0 +1,8 @@
+let starttime = datetime('20241111 14:00:00');
+let endtime = datetime('20241112 17:00:00');
+let database = "MASTER";
+
+AzureDiagnostics
+|where originalEventTimestamp_t between(starttime.. endtime) and Resource == database and Category == "SQLSecurityAuditEvents" and action_id_s == 'DBAF'
+|project  event_time_t,ResourceGroup,Resource,LogicalServerName_s,database_name_s,host_name_s,application_name_s,additional_information_s
+
